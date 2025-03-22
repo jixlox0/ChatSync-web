@@ -1,20 +1,28 @@
 <script setup>
   import Input from '@/components/c-Input.vue'
-  import Button from '@/components/c-button.vue'
+  import Button from '@/components/c-Button.vue'
 </script>
 
 <template>
   <div class="flex justify-center items-center w-full">
     <form
       action=""
-      class="p-4 flex justify-center items-center flex-col space-y-4 min-w-[40%] border rounded-xl"
+      class="px-4 py-6 flex justify-center items-center bg-white flex-col space-y-4 min-w-[40%] border rounded-xl"
     >
       <div class="text-3xl text-left font-bold">Welcome to ChatSync</div>
       <div class="space-y-4 w-full max-w-sm pt-4">
-        <Input label="Email" />
-        <Input type="password" label="Password" />
+        <Input id="chatsync_email" label="Email" placeholder="jonmichale@gmail.com" />
+        <Input
+          id="chatsync_password"
+          type="password"
+          label="Password"
+          placeholder="i'm watching... oops sorry!"
+        />
       </div>
-      <Button type="button" loading="">Submit</Button>
+      <div class="flex justify-between w-full pt-2">
+        <Button type="button" variant="link" href="/signup">Create an account ?</Button>
+        <Button type="button">Signin</Button>
+      </div>
     </form>
   </div>
 </template>

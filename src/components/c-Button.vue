@@ -2,7 +2,6 @@
   import { cn } from '@/utils/common'
   import Icons from '@/utils/icons.vue'
   import { cva } from 'class-variance-authority'
-  import { Loader2 } from 'lucide-vue-next'
 
   import { defineProps, useAttrs } from 'vue'
   defineOptions({
@@ -13,8 +12,14 @@
     classname?: string
     variant?: 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
     loading?: boolean
+    type?: 'submit' | 'reset' | 'button'
+    href?: string
+    href_target?: string
     size?: 'sm' | 'lg' | 'icon'
   }
+
+  const attributes = useAttrs()
+  const props = defineProps<ButtonProps>()
 
   const buttonVariants = cva(
     'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-sky-400 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
@@ -41,19 +46,28 @@
       },
     }
   )
-
-  const props = defineProps<ButtonProps>()
-  const attributes = useAttrs()
 </script>
 
 <template>
   <button
+    v-if="variant !== 'link'"
+    :type="type"
     :class="
       cn(props.classname, buttonVariants({ variant, size }), props.loading && 'animate-pulse gap-2')
     "
     v-bind="attributes"
     v-on="attributes"
   >
-    <slot /> <Icons name="spinner" />
+    <slot /> <Icons v-if="props.loading" name="spinner" />
   </button>
+  <router-link
+    v-if="variant === 'link'"
+    :to="props.href"
+    :target="props.href_target"
+    :class="
+      cn(buttonVariants({ variant, size }), 'text-sky-400 px-0 underline-offset-4 hover:underline')
+    "
+  >
+    <slot />
+  </router-link>
 </template>
