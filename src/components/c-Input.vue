@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { cn } from '@/utils/common'
-  import { defineProps, useAttrs } from 'vue'
+  import { useAttrs, defineModel, defineEmits } from 'vue'
   defineOptions({
     name: 'Input',
   })
@@ -17,12 +17,17 @@
 
   const props = defineProps<InputProps>()
   const attributes = useAttrs()
+
+  const modelValue = defineModel<string>()
+  const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
   <div v-if="!props.hidden" class="space-y-1 w-full flex flex-col">
     <label v-if="props.label" class="font-semibold">{{ label }}</label>
     <input
+      :value="modelValue"
+      @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       :class="
         cn(
           props.classname,

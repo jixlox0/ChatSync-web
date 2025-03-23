@@ -1,8 +1,3 @@
-<script setup>
-  import Input from '@/components/c-Input.vue'
-  import Button from '@/components/c-Button.vue'
-</script>
-
 <template>
   <div class="flex justify-center items-center w-full">
     <form

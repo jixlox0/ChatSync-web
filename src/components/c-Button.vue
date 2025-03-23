@@ -3,7 +3,7 @@
   import Icons from '@/utils/icons.vue'
   import { cva } from 'class-variance-authority'
 
-  import { defineProps, useAttrs } from 'vue'
+  import { useAttrs } from 'vue'
   defineOptions({
     name: 'Button',
   })

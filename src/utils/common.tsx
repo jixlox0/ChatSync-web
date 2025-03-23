@@ -14,3 +14,5 @@ export function PingedTime(props: { time: SQLTime }) {
     </span>
   )
 }
+
+export const waitFor = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay))
