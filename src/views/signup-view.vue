@@ -30,10 +30,10 @@
 
     await createAccount(account)
       .then((res) => {
-        console.log(res.data)
+        console.log('res', res)
       })
       .catch((err) => {
-        console.error(err)
+        console.error('err', err)
       })
   })
 </script>
