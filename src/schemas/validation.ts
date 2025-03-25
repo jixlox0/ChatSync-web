@@ -21,6 +21,15 @@ export const CreateAccounSchema = z.object({
   password: z
     .string()
     .min(8, 'Minimum 8 characters need')
-    .max(8, 'Only 8 characters allowed')
+    .max(100, 'Only 100 characters allowed')
+    .nonempty('Password required'),
+})
+
+export const LoginAccountSchema = z.object({
+  email: z.string().email().nonempty(),
+  password: z
+    .string()
+    .min(8, 'Minimum 8 characters need')
+    .max(100, 'Only 100 characters allowed')
     .nonempty('Password required'),
 })

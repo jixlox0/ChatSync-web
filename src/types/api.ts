@@ -5,3 +5,8 @@ export interface createAccountRequest {
   email: string
   password: string
 }
+
+export interface loginAccountRequest {
+  email: string
+  password: string
+}
