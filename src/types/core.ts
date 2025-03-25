@@ -5,5 +5,4 @@ export interface Account extends Base {
   last_name: string
   user_name: string
   email: string
-  password: string
 }

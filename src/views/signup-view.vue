@@ -8,6 +8,12 @@
 
   import { createAccount } from '@/service/api'
   import { createAccountRequest } from '@/types/api'
+  import { authStore } from '@/stores/auth-store'
+  import { router } from '@/router'
+  import { ref } from 'vue'
+
+  const auth = authStore()
+  const loading = ref<boolean>(false)
 
   const { errors, handleSubmit } = useForm({
     validationSchema: toTypedSchema(CreateAccounSchema),
@@ -27,15 +33,20 @@
       email: data.email,
       password: data.password,
     }
-
+    loading.value = true
     await createAccount(account)
       .then((res) => {
-        console.log('res', res)
+        auth.fetchAccount()
+        loading.value = false
       })
-      .catch((err) => {
-        console.error('err', err)
-      })
+      .catch((err) => {})
   })
+
+  if (auth.account || auth.isAuthenticated) {
+    router.push('/')
+  } else {
+    router.push('/signup')
+  }
 </script>
 
 <template>
@@ -93,7 +104,7 @@
       </div>
       <div class="flex justify-between w-full pt-2">
         <Button type="button" variant="link" href="/login">Have an account ?</Button>
-        <Button :type="'submit'">Create</Button>
+        <Button type="submit" :loading="loading">Create</Button>
       </div>
     </form>
   </div>

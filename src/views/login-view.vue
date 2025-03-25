@@ -6,6 +6,12 @@
   import { LoginAccountSchema } from '@/schemas/validation'
   import { loginAccountRequest } from '@/types/api'
   import { loginAccount } from '@/service/api'
+  import { authStore } from '@/stores/auth-store'
+  import { router } from '@/router'
+  import { ref } from 'vue'
+
+  const auth = authStore()
+  const loading = ref<boolean>(false)
 
   const { errors, handleSubmit } = useForm({
     validationSchema: toTypedSchema(LoginAccountSchema),
@@ -19,15 +25,21 @@
       email: data.email,
       password: data.password,
     }
+    loading.value = true
 
     await loginAccount(account)
       .then((res) => {
-        console.log('res', res)
+        auth.fetchAccount()
+        loading.value = false
       })
-      .catch((err) => {
-        console.error('err', err)
-      })
+      .catch((err) => {})
   })
+
+  if (auth.account || auth.isAuthenticated) {
+    router.push('/')
+  } else {
+    router.push('/login')
+  }
 </script>
 
 <template>
@@ -36,7 +48,7 @@
       @submit.prevent="onSubmit"
       class="px-4 py-6 flex justify-center items-center bg-white flex-col space-y-4 min-w-[40%] border rounded-xl"
     >
-      <div class="text-3xl text-left font-bold">Welcome to ChatSync</div>
+      <div class="text-3xl text-left font-bold">Welcome to ChatSync {{}}</div>
       <div class="space-y-4 w-full max-w-sm pt-4">
         <Input
           v-model="email"
@@ -58,7 +70,7 @@
       </div>
       <div class="flex justify-between w-full pt-1">
         <Button type="button" variant="link" href="/signup">Create an account ?</Button>
-        <Button type="submit">Signin</Button>
+        <Button type="submit" :loading="loading">Signin</Button>
       </div>
     </form>
   </div>
