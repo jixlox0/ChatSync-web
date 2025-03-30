@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { cn } from '@/utils/common'
-  import Icons from '@/utils/icons.vue'
-  import { useAttrs, defineModel, defineEmits, ref, nextTick } from 'vue'
+  import { useAttrs, defineModel, defineEmits, ref } from 'vue'
 
   defineOptions({
     name: 'Input',
@@ -15,32 +14,21 @@
     classname?: string
     error?: string
     hint?: string
-    type?: string
   }
-
-  let showPw = ref<boolean>(false)
   const attributes = useAttrs()
   const props = defineProps<InputProps>()
   const modelValue = defineModel<string>()
-  const inputRef = ref<HTMLInputElement | null>(null)
+  const textAreaRef = ref<HTMLTextAreaElement | null>(null)
 
   const emit = defineEmits(['update:modelValue'])
-
-  const togglePassword = () => {
-    showPw.value = !showPw.value
-    nextTick(() => {
-      inputRef.value?.focus()
-    })
-  }
 </script>
 
 <template>
   <div v-if="!props.hidden" class="space-y-1 w-full flex flex-col">
     <label v-if="props.label" class="font-semibold">{{ props.label }}</label>
     <div class="flex gap-2 w-full">
-      <input
-        ref="inputRef"
-        :type="showPw && props.type === 'password' ? 'text' : props.type || 'text'"
+      <textarea
+        ref="textAreaRef"
         :value="modelValue"
         @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         :class="
@@ -55,16 +43,6 @@
         v-bind="attributes"
         :disabled="props.loading || props.disabled"
       />
-
-      <button
-        type="button"
-        v-if="props.type === 'password'"
-        @click="togglePassword"
-        class="text-xs flex justify-center items-center"
-      >
-        <Icons v-if="showPw" name="eye" />
-        <Icons v-if="!showPw" name="eyeClosed" />
-      </button>
     </div>
     <p v-if="props.error" class="text-red-700 text-sm">{{ props.error }}</p>
     <p v-if="props.hint" class="text-gray-500 text-sm">hint : {{ props.hint }}</p>

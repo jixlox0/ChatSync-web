@@ -21,6 +21,8 @@ export const authStore = defineStore('auth', () => {
         isAuthenticated.value = false
         loading.value = false
       })
+
+    loading.value = false
   }
 
   return { account, isAuthenticated, loading, fetchAccount }

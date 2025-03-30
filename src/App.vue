@@ -13,7 +13,7 @@
   watch(
     () => auth.account,
     () => {
-      console.log('Account logged in successfully ☺️')
+      console.log('Account logged in successfully ☺️', auth.account)
     }
   )
 </script>
