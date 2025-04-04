@@ -13,3 +13,7 @@ export async function loginAccount(req: loginAccountRequest) {
 export async function getAccount() {
   return request.get<Account>('/account/me')
 }
+
+export async function getAccounts() {
+  return request.get<Account[]>('/account/list')
+}

@@ -2,6 +2,7 @@ import { getAccount } from '@/service/api'
 import { Account } from '@/types/core'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { toast } from 'vue-sonner'
 
 export const authStore = defineStore('auth', () => {
   const account = ref<Account>()
@@ -17,11 +18,15 @@ export const authStore = defineStore('auth', () => {
         loading.value = false
       })
       .catch((err) => {
-        console.error(err)
+        toast.error(err.error_message)
         isAuthenticated.value = false
         loading.value = false
       })
+      .finally(() => {
+        loading.value = false
+      })
 
+    isAuthenticated.value = false
     loading.value = false
   }
 

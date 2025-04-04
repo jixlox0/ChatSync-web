@@ -5,8 +5,16 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatSync</title>
+    <script>
+      const savedTheme = localStorage.getItem('theme')
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light')
+      if (initialTheme === 'dark') {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
   </head>
-  <body>
+  <body class="transition-colors duration-200">
     <div id="app" class="flex h-screen flex-grow"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

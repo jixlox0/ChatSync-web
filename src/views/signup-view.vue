@@ -11,6 +11,7 @@
   import { authStore } from '@/stores/auth-store'
   import { router } from '@/router'
   import { ref } from 'vue'
+  import { toast } from 'vue-sonner'
 
   const auth = authStore()
   const loading = ref<boolean>(false)
@@ -33,13 +34,17 @@
       email: data.email,
       password: data.password,
     }
+
     loading.value = true
     await createAccount(account)
       .then((res) => {
         auth.fetchAccount()
         loading.value = false
       })
-      .catch((err) => {})
+      .catch((err) => {
+        toast.error(err.error_message)
+        loading.value = false
+      })
   })
 
   if (auth.account || auth.isAuthenticated) {
@@ -57,7 +62,7 @@
     >
       <div class="text-3xl text-left font-bold">Create your account here</div>
       <div class="text-md text-left font-light">Enter your valid details to create an account.</div>
-      <div class="space-y-4 pt-4">
+      <div class="space-y-4 pt-4 max-w-sm">
         <div class="w-full flex gap-3">
           <Input
             v-model="first_name"
@@ -102,7 +107,7 @@
           :error="errors.password"
         />
       </div>
-      <div class="flex flex-col w-full max-w-sm space-y-3 justify-center items-center pt-2">
+      <div class="flex flex-col w-full space-y-3 max-w-sm justify-center items-center pt-2">
         <Button class="w-full" type="submit" :loading="loading">Create</Button>
         <p class="text-sm text-gray-500">
           Already have an account?

@@ -3,12 +3,14 @@
   import { Button } from '@/components/ui/button'
   import { useField, useForm } from 'vee-validate'
   import { toTypedSchema } from '@vee-validate/zod'
+
   import { LoginAccountSchema } from '@/schemas/validation'
   import { loginAccountRequest } from '@/types/api'
   import { loginAccount } from '@/service/api'
   import { authStore } from '@/stores/auth-store'
   import { router } from '@/router'
   import { ref } from 'vue'
+  import { toast } from 'vue-sonner'
 
   const auth = authStore()
   const loading = ref<boolean>(false)
@@ -25,14 +27,17 @@
       email: data.email,
       password: data.password,
     }
-    loading.value = true
 
+    loading.value = true
     await loginAccount(account)
       .then((res) => {
         auth.fetchAccount()
         loading.value = false
       })
-      .catch((err) => {})
+      .catch((err) => {
+        toast.error(err.error_message)
+        loading.value = false
+      })
   })
 
   if (auth.account || auth.isAuthenticated) {

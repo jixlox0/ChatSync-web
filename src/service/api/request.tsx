@@ -5,6 +5,7 @@ import { waitFor } from '@/utils/common'
 import { APIResponse } from '@/types/common'
 import { LocalCache } from '../cache'
 import { CACHE_KEY_TOKEN } from '@/utils/constants'
+import { toast } from 'vue-sonner'
 
 const request: AxiosInstance = axios.create({
   baseURL: cfg.api_url,
@@ -42,7 +43,7 @@ request.interceptors.response.use(
     return res
   },
   (error) => {
-    if (!error.response) return alert('Network connection issue')
+    if (!error.response) return toast('Network connection issue')
 
     let token = error.response.headers['x-access-token'] || error.response.headers['X-Access-Token']
     if (token) LocalCache.Instance.setCache(CACHE_KEY_TOKEN, token)
@@ -52,8 +53,8 @@ request.interceptors.response.use(
       success: false,
       data: error.response.data,
       total: error.response.total,
-      error_code: error.response.error_code,
-      error_message: error.response.error_message ?? 'Network error',
+      error_code: error.response.data.error_code,
+      error_message: error.response.data.error_message,
     }
     return Promise.reject(res)
   }
