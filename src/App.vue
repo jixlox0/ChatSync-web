@@ -2,7 +2,8 @@
   import { onMounted, watch } from 'vue'
   import { authStore } from './stores/auth-store'
   import LayoutView from './views/layout/layout-view.vue'
-  import Loading from './views/loading.vue'
+  import { PageLoader } from './components/loader'
+  import { Toaster } from './components/ui/sonner'
 
   const auth = authStore()
 
@@ -19,8 +20,9 @@
 </script>
 
 <template>
+  <Toaster />
   <LayoutView>
     <router-view v-if="!auth.loading"></router-view>
-    <Loading v-if="auth.loading" />
+    <PageLoader v-if="auth.loading" />
   </LayoutView>
 </template>

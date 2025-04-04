@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import Input from '@/components/c-Input.vue'
-  import Button from '@/components/c-Button.vue'
+  import { Input } from '@/components/ui/input'
+  import { Button } from '@/components/ui/button'
 
   import { CreateAccounSchema } from '@/schemas/validation'
   import { useField, useForm } from 'vee-validate'
@@ -55,7 +55,7 @@
       @submit.prevent="onSubmit"
       class="px-4 py-6 flex justify-center items-center bg-white flex-col space-y-2 min-w-[40%] border rounded-xl"
     >
-      <div class="text-3xl text-left font-bold">Welcome to ChatSync</div>
+      <div class="text-3xl text-left font-bold">Create your account here</div>
       <div class="text-md text-left font-light">Enter your valid details to create an account.</div>
       <div class="space-y-4 pt-4">
         <div class="w-full flex gap-3">
@@ -102,9 +102,12 @@
           :error="errors.password"
         />
       </div>
-      <div class="flex justify-between w-full pt-2">
-        <Button type="button" variant="link" href="/login">Have an account ?</Button>
-        <Button type="submit" :loading="loading">Create</Button>
+      <div class="flex flex-col w-full max-w-sm space-y-3 justify-center items-center pt-2">
+        <Button class="w-full" type="submit" :loading="loading">Create</Button>
+        <p class="text-sm text-gray-500">
+          Already have an account?
+          <router-link to="/login" class="text-sky-600 hover:underline"> Login</router-link>
+        </p>
       </div>
     </form>
   </div>

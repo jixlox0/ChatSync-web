@@ -1,14 +1,15 @@
 <script setup lang="ts">
   import { WebSocketService } from '@/service/webSocketService'
-  import ChatLayout from '../layout/chats-list-view.vue'
-  import Button from '@/components/c-Button.vue'
+
+  import { Button } from '@/components/ui/button'
   import { WebSocketUrl } from '@/utils/constants'
   import { onMounted, onUnmounted, ref } from 'vue'
   import { authStore } from '@/stores/auth-store'
   import { Chat } from '@/types/core'
   import { router } from '@/router'
-  import TextArea from '@/components/TextArea.vue'
+  import { Textarea } from '@/components/ui/textarea'
   import { cn } from '@/utils/common'
+  import ChatsListView from '../layout/chats-list-view.vue'
 
   const auth = authStore()
   const text = ref<string>('')
@@ -47,7 +48,7 @@
 </script>
 
 <template>
-  <ChatLayout></ChatLayout>
+  <ChatsListView></ChatsListView>
   <div class="flex justify-center items-center w-full">
     <div class="flex size-full justify-end flex-col p-3">
       <div class="flex pb-2 overflow-hidden">
@@ -70,8 +71,8 @@
         </div>
       </div>
       <div class="flex gap-3 items-end">
-        <TextArea v-model="text" class="w-full resize-none max-h-20 min-h-20" />
-        <Button class="h-full" :disabled="text.length === 0" @click="sendMessage">Send</Button>
+        <Textarea v-model="text" class="w-full resize-none" />
+        <Button :disabled="text.length === 0" @click="sendMessage">Send</Button>
       </div>
     </div>
   </div>

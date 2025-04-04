@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import Input from '@/components/c-Input.vue'
-  import Button from '@/components/c-Button.vue'
+  import { Input } from '@/components/ui/input'
+  import { Button } from '@/components/ui/button'
   import { useField, useForm } from 'vee-validate'
   import { toTypedSchema } from '@vee-validate/zod'
   import { LoginAccountSchema } from '@/schemas/validation'
@@ -68,9 +68,12 @@
           :error="errors.password"
         />
       </div>
-      <div class="flex justify-between w-full pt-1">
-        <Button type="button" variant="link" href="/signup">Create an account ?</Button>
-        <Button type="submit" :loading="loading">Signin</Button>
+      <div class="flex flex-col w-full max-w-sm space-y-3 justify-center items-center pt-1">
+        <Button class="w-full" type="submit" :loading="loading">Login</Button>
+        <p class="text-sm text-gray-500">
+          Don't have an account?
+          <router-link to="/signup" class="text-sky-600 hover:underline"> Register</router-link>
+        </p>
       </div>
     </form>
   </div>

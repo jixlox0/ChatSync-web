@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import * as icons from 'lucide-vue-next'
-  import { cn } from './common'
+  import { cn } from '../common'
   import { computed } from 'vue'
   import { IconNames } from '@/types/icons'
 
@@ -17,6 +17,6 @@
 <template>
   <component
     :is="icon"
-    :class="cn(props.classname, props.name === 'spinner' && 'animate-spin', 'size-5')"
+    :class="cn(props.classname, props.name === 'spinner' ? 'animate-spin size-16' : 'size-5')"
   />
 </template>
