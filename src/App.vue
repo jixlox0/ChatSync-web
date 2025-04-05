@@ -8,7 +8,7 @@
   const auth = authStore()
 
   onMounted(async () => {
-    await auth.fetchAccount()
+    await auth.refresh()
   })
 
   watch(

@@ -7,6 +7,7 @@
   interface IconProps {
     name: string
     classname?: string
+    size?: number
   }
 
   const props = defineProps<IconProps>()
@@ -14,12 +15,14 @@
   const icon = computed(() => icons[value])
 
   const attributes = useAttrs()
+  const style = `height: ${props.size}px; width: ${props.size}px;`
 </script>
 
 <template>
   <component
     :is="icon"
     v-bind="attributes"
+    :style="style"
     :class="cn(props.name === 'spinner' ? 'animate-spin size-16' : props.classname)"
   />
 </template>

@@ -1,4 +1,4 @@
-import { Base } from './common'
+import { Base, SQLTime } from './common'
 
 export interface Account extends Base {
   first_name: string
@@ -7,7 +7,16 @@ export interface Account extends Base {
   email: string
 }
 
-export interface Chat {
+export interface Chat extends Base {
+  sender_user_id: string
+  receiver_user_id: string
+  synced: boolean
+  synced_at: SQLTime
+  seen: boolean
+  seen_at: SQLTime
+}
+
+export interface ChatMessage {
   sender_id: string
   sender_user_name: string
   receiver_user_name: string

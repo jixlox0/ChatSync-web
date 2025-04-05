@@ -1,5 +1,7 @@
-import { getAccount } from '@/service/api'
+import { router } from '@/router'
+import { getAccount, logout } from '@/service/api'
 import { Account } from '@/types/core'
+import { authRoutes } from '@/types/routes'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { toast } from 'vue-sonner'
@@ -20,15 +22,28 @@ export const authStore = defineStore('auth', () => {
       .catch((err) => {
         toast.error(err.error_message)
         isAuthenticated.value = false
+        router.push(authRoutes.auth.login)
         loading.value = false
       })
-      .finally(() => {
-        loading.value = false
-      })
-
-    isAuthenticated.value = false
     loading.value = false
   }
 
-  return { account, isAuthenticated, loading, fetchAccount }
+  const refresh = () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetchAccount()
+    } else {
+      loading.value = false
+    }
+  }
+
+  const logoutAccount = async () => {
+    await logout().then(() => {
+      account.value = null
+      refresh()
+      localStorage.removeItem('token')
+    })
+  }
+
+  return { account, isAuthenticated, loading, refresh, logoutAccount }
 })

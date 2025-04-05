@@ -1,4 +1,4 @@
-import { createAccountRequest, loginAccountRequest } from '@/types/api'
+import { createAccountRequest, CreateSyncRequest, loginAccountRequest } from '@/types/api'
 import request from './request'
 import { Account } from '@/types/core'
 
@@ -14,6 +14,18 @@ export async function getAccount() {
   return request.get<Account>('/account/me')
 }
 
+export async function logout() {
+  return request.post<Account>('/account/logout')
+}
+
 export async function getAccounts() {
   return request.get<Account[]>('/account/list')
+}
+
+export async function syncChatPartner(req: CreateSyncRequest) {
+  return request.post('/account/chat/sync', req)
+}
+
+export async function getChatPartners() {
+  return request.get('/account/chat/partners')
 }

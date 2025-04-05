@@ -11,6 +11,7 @@
   import { router } from '@/router'
   import { ref } from 'vue'
   import { toast } from 'vue-sonner'
+  import { baseRoutes } from '@/types/routes'
 
   const auth = authStore()
   const loading = ref<boolean>(false)
@@ -31,7 +32,7 @@
     loading.value = true
     await loginAccount(account)
       .then((res) => {
-        auth.fetchAccount()
+        auth.refresh()
         loading.value = false
       })
       .catch((err) => {
@@ -41,9 +42,7 @@
   })
 
   if (auth.account || auth.isAuthenticated) {
-    router.push('/')
-  } else {
-    router.push('/login')
+    router.push(baseRoutes.root)
   }
 </script>
 
@@ -51,7 +50,7 @@
   <div class="flex justify-center items-center w-full">
     <form
       @submit.prevent="onSubmit"
-      class="px-4 py-6 flex justify-center items-center bg-white flex-col space-y-4 min-w-[40%] border rounded-xl"
+      class="px-4 py-6 flex justify-center items-center flex-col space-y-4 min-w-[40%] border rounded-xl"
     >
       <div class="text-3xl text-left font-bold">Welcome to ChatSync {{}}</div>
       <div class="space-y-4 w-full max-w-sm pt-4">
@@ -74,7 +73,7 @@
         />
       </div>
       <div class="flex flex-col w-full max-w-sm space-y-3 justify-center items-center pt-1">
-        <Button class="w-full" type="submit" :loading="loading">Login</Button>
+        <Button class="w-full" type="submit" :loading="loading" :disabled="loading">Login</Button>
         <p class="text-sm text-gray-500">
           Don't have an account?
           <router-link to="/signup" class="text-sky-600 hover:underline"> Register</router-link>

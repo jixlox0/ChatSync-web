@@ -6,4 +6,7 @@ export const IconNames: { key: string; value: string }[] = [
   { key: 'sun', value: 'Sun' },
   { key: 'moon', value: 'Moon' },
   { key: 'system', value: 'Monitor' },
+  { key: 'settings', value: 'Settings' },
+  { key: 'user', value: 'User' },
+  { key: 'logout', value: 'LogOut' },
 ]

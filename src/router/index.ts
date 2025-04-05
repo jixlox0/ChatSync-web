@@ -3,18 +3,19 @@ import loginView from '@/views/login-view.vue'
 import SignupView from '@/views/signup-view.vue'
 import NotFound from '@/views/not-found.vue'
 import ChatView from '@/views/chat/chat-view.vue'
+import { authRoutes, baseRoutes } from '@/types/routes'
 
 const routes = [
   {
-    path: '/',
+    path: baseRoutes.root,
     component: ChatView,
   },
   {
-    path: '/login',
+    path: authRoutes.auth.login,
     component: loginView,
   },
   {
-    path: '/signup',
+    path: authRoutes.auth.signup,
     component: SignupView,
   },
   {

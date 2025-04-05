@@ -12,6 +12,7 @@
   import { router } from '@/router'
   import { ref } from 'vue'
   import { toast } from 'vue-sonner'
+  import { baseRoutes } from '@/types/routes'
 
   const auth = authStore()
   const loading = ref<boolean>(false)
@@ -38,7 +39,7 @@
     loading.value = true
     await createAccount(account)
       .then((res) => {
-        auth.fetchAccount()
+        auth.refresh()
         loading.value = false
       })
       .catch((err) => {
@@ -48,9 +49,7 @@
   })
 
   if (auth.account || auth.isAuthenticated) {
-    router.push('/')
-  } else {
-    router.push('/signup')
+    router.push(baseRoutes.root)
   }
 </script>
 
@@ -58,7 +57,7 @@
   <div class="flex justify-center items-center w-full">
     <form
       @submit.prevent="onSubmit"
-      class="px-4 py-6 flex justify-center items-center bg-white flex-col space-y-2 min-w-[40%] border rounded-xl"
+      class="px-4 py-6 flex justify-center items-center flex-col space-y-2 min-w-[40%] border rounded-xl"
     >
       <div class="text-3xl text-left font-bold">Create your account here</div>
       <div class="text-md text-left font-light">Enter your valid details to create an account.</div>

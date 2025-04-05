@@ -49,9 +49,11 @@
 </script>
 
 <template>
-  <div class="absolute flex bottom-0.5 left-0.5 items-center justify-start z-50 w-full size-10">
-    <Button class="size-10 rounded-bl-xl" @click="toggleTheme">
-      <Icons style="height: 10px; width: 10px" :name="currentTheme === 'dark' ? 'moon' : 'sun'" />
+  <div class="flex items-center justify-start z-50 w-full">
+    <Button class="w-full justify-start" @click="toggleTheme" size="sm">
+      <Icons :size="16" name="currentTheme === 'dark' ? 'moon' : 'sun'" />{{
+        currentTheme === 'light' ? 'Light' : 'Dark'
+      }}
     </Button>
   </div>
 </template>

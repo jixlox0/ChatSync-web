@@ -10,3 +10,8 @@ export interface loginAccountRequest {
   email: string
   password: string
 }
+
+export interface CreateSyncRequest {
+  sender_user_id: string
+  receiver_user_id: string
+}
