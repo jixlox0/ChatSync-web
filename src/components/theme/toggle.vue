@@ -51,9 +51,8 @@
 <template>
   <div class="flex items-center justify-start z-50 w-full">
     <Button class="w-full justify-start" @click="toggleTheme" size="sm">
-      <Icons :size="16" name="currentTheme === 'dark' ? 'moon' : 'sun'" />{{
-        currentTheme === 'light' ? 'Light' : 'Dark'
-      }}
+      <Icons :size="16" :name="currentTheme === 'dark' ? 'moon' : 'sun'" />
+      {{ currentTheme === 'light' ? 'Light' : 'Dark' }}
     </Button>
   </div>
 </template>

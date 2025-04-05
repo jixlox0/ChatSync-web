@@ -9,7 +9,7 @@
 
   import { Textarea } from '@/components/ui/textarea'
   import { cn } from '@/utils/common'
-  import { ThemeToggle } from '@/components/theme'
+
   import { Icons } from '@/utils/icons'
   import { getAccounts, getChatPartners, syncChatPartner } from '@/service/api'
   import { toast } from 'vue-sonner'
@@ -64,13 +64,6 @@
 
   onMounted(async () => {
     if (!auth.account) return
-    await getAccounts()
-      .then((res) => {
-        accounts.value = res.data.filter((ac) => ac.id !== auth.account.id)
-      })
-      .catch((err) => {
-        toast('Error while fetching accounts:', err)
-      })
 
     await getChatPartners()
       .then((res) => {
@@ -78,6 +71,14 @@
       })
       .catch((err) => {
         toast('Error while fetching partners:', err)
+      })
+
+    await getAccounts()
+      .then((res) => {
+        accounts.value = res.data.filter((ac) => ac.id !== auth.account.id)
+      })
+      .catch((err) => {
+        toast('Error while fetching accounts:', err)
       })
   })
 
@@ -128,9 +129,11 @@
             "
           >
             <div class="flex space-y-1 flex-col truncate">
-              <!-- <h1 class="font-bold text-md truncate">{{ partner.first_name }} {{ partner.last_name }}</h1> -->
+              <h1 class="font-bold text-md truncate">
+                {{ partner.first_name }} {{ partner.last_name }}
+              </h1>
               <h1 class="font-bold text-xs text-muted-foreground truncate">
-                @{{ partner.receiver_user_id }}
+                @{{ partner.user_name }}
               </h1>
             </div>
           </div>
@@ -165,7 +168,9 @@
       <div class="flex pb-2 flex-col justify-between size-full overflow-hidden">
         <div class="border-b flex items-center p-2">
           <h1 class="font-bold text-lg flex overflow-hidden">
-            <p class="hover:underline truncate">{{ selectedpartner && selectedpartner.id }}</p>
+            <p class="hover:underline truncate">
+              {{ selectedpartner && selectedpartner.user_name }}
+            </p>
           </h1>
         </div>
         <div class="flex flex-col size-full overflow-auto">

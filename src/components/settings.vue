@@ -11,7 +11,6 @@
   } from './ui/dropdown-menu'
   import { Icons } from '@/utils/icons'
   import { ThemeToggle } from './theme'
-
   const { logoutAccount } = authStore()
 </script>
 

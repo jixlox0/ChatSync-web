@@ -10,6 +10,9 @@ export interface Account extends Base {
 export interface Chat extends Base {
   sender_user_id: string
   receiver_user_id: string
+  first_name: string
+  last_name: string
+  user_name: string
   synced: boolean
   synced_at: SQLTime
   seen: boolean

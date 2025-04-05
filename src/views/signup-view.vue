@@ -110,7 +110,7 @@
         <Button class="w-full" type="submit" :loading="loading">Create</Button>
         <p class="text-sm text-gray-500">
           Already have an account?
-          <router-link to="/login" class="text-sky-600 hover:underline"> Login</router-link>
+          <router-link to="/auth/login" class="text-sky-600 hover:underline">Login</router-link>
         </p>
       </div>
     </form>

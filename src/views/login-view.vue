@@ -76,7 +76,9 @@
         <Button class="w-full" type="submit" :loading="loading" :disabled="loading">Login</Button>
         <p class="text-sm text-gray-500">
           Don't have an account?
-          <router-link to="/signup" class="text-sky-600 hover:underline"> Register</router-link>
+          <router-link to="/auth/signup" class="text-sky-600 hover:underline">
+            Register
+          </router-link>
         </p>
       </div>
     </form>
