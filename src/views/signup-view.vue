@@ -102,7 +102,7 @@
           type="password"
           autocomplete="current-password"
           label="Password"
-          placeholder="********"
+          placeholder="i'm watching... just kidding!"
           :error="errors.password"
         />
       </div>
